@@ -1,8 +1,8 @@
 package TP1;
-// PARAMETROS EN JAVA SIEMPRE POR COPIA!!!
+// LOS PARÁMETROS EN JAVA SIEMPRE SON POR COPIA!!!
 
 
-// El 4 no anda, ninguno de los 2, ya que los Wrapper son Inmutables
+// Del ejercicio 4 no andan ninguno de los 2 mètodos ya que los Wrapper son Inmutables
 public class ej4 {
     public static void swap1 (int x, int y) {
         if (x < y) {

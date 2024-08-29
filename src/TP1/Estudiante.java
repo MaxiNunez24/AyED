@@ -7,12 +7,12 @@ public class Estudiante {
     private String email;
     private String direccion;
 
-    public Estudiante(String nombre, String apellido, String comision, String email, String direccion) {
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.comision = comision;
-        this.email = email;
-        this.direccion = direccion;
+    public Estudiante(String unNombre, String unApellido, String unaComision, String unEmail, String unaDireccion) {
+        this.nombre = unNombre;
+        this.apellido = unApellido;
+        this.comision = unaComision;
+        this.email = unEmail;
+        this.direccion = unaDireccion;
     }
 
     public String getApellido() {
@@ -57,7 +57,10 @@ public class Estudiante {
 
     public String tusDatos(){
             String aux = "";
-            
+            aux+= "Nombre: " + this.getNombre() +" "+ this.getApellido() + "\n" +
+                    "Comisiòn: " + this.getComision() + "\n" +
+                    "Email: " + this.getEmail() + "\n" +
+                    "Direccion: " + this.getDireccion() + "\n";
             return aux;
     }
 

@@ -50,4 +50,14 @@ public class Profesor {
         this.facultad = facultad;
     }
 
+
+    public String tusDatos(){
+        String aux = "";
+        aux+= "Nombre: " + this.getNombre() +" "+ this.getApellido() + "\n" +
+                "Email: " + this.getEmail() + "\n" +
+                "Cátedra: " + this.getCatedra() + "\n" +
+                "Facultad: " + this.getFacultad() + "\n";
+        return aux;
+    }
+
 }
