@@ -30,7 +30,15 @@ public class ej5 {
         aux.setProm(sum/arr.length);
     }
 
-    //HACER EL C
+    public static void c(int[] arr){
+        int aux = 0;
+        for(int i=0;i<arr.length;i++){
+            if(arr[i]>global.getMax())global.setMax(arr[i]);
+            if(arr[i]<global.getMin())global.setMin(arr[i]);
+            aux += arr[i];
+        }
+        global.setProm(aux/arr.length);
+    }
 
     public static void main(String[] args) {
         int[] arr = new int[10];
@@ -42,8 +50,8 @@ public class ej5 {
         MaxMinProm b = new MaxMinProm();
         b(arr, b);
         System.out.println(b.toString());
-
-
+        c(arr);
+        System.out.println(global.toString());
 
     }
 
