@@ -64,5 +64,11 @@ public class Estudiante {
             return aux;
     }
 
-
+    public boolean equals(Estudiante est) {
+        return est.getComision().equals(this.getComision())
+                && est.getEmail().equals(this.getEmail())
+                && est.getDireccion().equals(this.getDireccion())
+                && est.getApellido().equals(this.getApellido())
+                && est.getNombre().equals(this.getNombre());
+    }
 }

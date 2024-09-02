@@ -4,7 +4,7 @@ import java.util.*;
 public class TextArrayList {
     public static void main(String[] args) {
         List<String> list = new ArrayList<>(Arrays.asList(args));
-        // List<String> list = new LinkedList<String>(Arrays.asList(args)); -> Inciso b
+        // b) List<String> list = new LinkedList<String>(Arrays.asList(args)); -> Inciso b
 
         System.out.println("----------- FOR EACH -------------");
 
@@ -12,18 +12,19 @@ public class TextArrayList {
             System.out.println(s);
         }
 
-        System.out.println("----------- ITERATOR -------------");
+        System.out.println("-----------C) ITERATOR -------------");
 
         Iterator<String> iter = list.iterator();
         while(iter.hasNext()){
             System.out.println(iter.next());
         }
 
-        System.out.println("----------- FOR -------------");
+        System.out.println("-----------C) FOR -------------");
 
         for(int i = 0; i < list.size(); i++){
             System.out.println(list.get(i));
         }
+
 
     }
 }
