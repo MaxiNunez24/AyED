@@ -30,7 +30,7 @@ public class ej7d {
 
         System.out.println("----------------------------------------------------------------");
 
-        // La conclusión que obtengo a partir de lo realizado es que lo que se guarda dentro de la Lista son referencias a los estudiantes y que, por más que genere una nueva lista, al copiarla se están copìando las referencias.
+        // La conclusión que obtengo a partir de lo realizado es que lo que se guarda entry de la Lista son referencias a los estudiantes y que, por más que genere una nueva lista, al copiarla se están copiando las referencias.
 
 
         Estudiante est4 = new Estudiante("Clara","Figueroa","2","clara@gmail.com","Clara 15412");
