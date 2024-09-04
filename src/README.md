@@ -30,3 +30,12 @@ Un objeto para transportar datos se llama DPO
 
 
 
+
+## Binary Tree
+
+Un árbol es vacío cuando es hoja (sus hijos son null) y el dato es null.
+
+Los métodos auxiliares se denominan **Helpers**, y son mayormente privados y recursivos.
+
+Declarar las variables donde se utilicen, no mandar al helper variables innecesarias
+
