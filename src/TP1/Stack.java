@@ -35,4 +35,6 @@ public class Stack<T> {
         str = str.substring(0, str.length() - 2)+"]";
         return str;
     }
+    
+
 }
