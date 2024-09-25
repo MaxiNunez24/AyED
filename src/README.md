@@ -39,3 +39,27 @@ Los métodos auxiliares se denominan **Helpers**, y son mayormente privados y re
 
 Declarar las variables donde se utilicen, no mandar al helper variables innecesarias
 
+
+## General Tree
+La cantidad de nodos de un árbol general lleno es:
+(k^h+1 - 1)/(k-1)
+
+Esto llevado a un árbol binario es reemplazar K por 2
+
+(2^h+1 - 1) / (2 - 1) =
+(2^h+1 - 1) / 1 =
+(2^h+1 - 1)
+
+Si el árbol está implementado con lista de hijos con Arraylist ocupa más espacio que con Linkedlist?
+
+## Short Circuit
+
+a && b -> Circuito corto (a es falso = todo falso)
+
+a & b -> Circuito largo (a es falso, si b es falso = todo falso)
+
+
+
+
+
+
