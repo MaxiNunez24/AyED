@@ -9,15 +9,15 @@ public class Stack<T> {
     }
 
     public void push(T item) {
-        data.add(item);
+        data.addLast(item);
     }
 
     public T pop() {
-        return data.remove(data.size() - 1);
+        return data.removeFirst();
     }
 
     public T top (){
-        return data.get(data.size() - 1);
+        return data.getLast();
     }
 
     public int size(){
@@ -25,7 +25,7 @@ public class Stack<T> {
     }
 
     public boolean isEmpty() {
-        return data.size() == 0;
+        return data.isEmpty();
     }
 
     @Override
