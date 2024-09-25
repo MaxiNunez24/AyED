@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Queue<T> {
-    private List<T> data;
+    protected List<T> data;
 
     public Queue(){
         data = new LinkedList<T>();
