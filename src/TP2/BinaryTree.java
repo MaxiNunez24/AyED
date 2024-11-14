@@ -70,5 +70,38 @@ public class BinaryTree <T> {
         return this.getData().toString();
     }
 
+    public int contarHojas(){
+        int cant = 0;
+        contarHojasHelper(this,cant);
+        return cant;
+    }
+
+    private void contarHojasHelper(BinaryTree<T> node, int cant){
+        if(node.isLeaf()){
+            cant++;
+        }else {
+            contarHojasHelper(node.getLeftChild(), cant);
+            contarHojasHelper(node.getRightChild(), cant);
+        }
+    }
+
+    public BinaryTree<T> espejo(){
+        BinaryTree<T> arbol = null;
+        if (!this.isEmpty()) espejoHelper(this, arbol = new BinaryTree());
+        return arbol;
+    }
+
+    private void espejoHelper(BinaryTree<T> original, BinaryTree<T> espejo){
+        espejo.setData(original.getData());
+        if(original.hasLeftChild()){
+            espejo.addRightChild(original.getLeftChild());
+            espejoHelper(original.getLeftChild(), espejo.getRightChild());
+        }
+        if(original.hasRightChild()){
+            espejo.addLeftChild(original.getRightChild());
+            espejoHelper(original.getRightChild(), espejo.getLeftChild());
+        }
+
+    }
 
 }
