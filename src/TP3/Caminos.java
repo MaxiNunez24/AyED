@@ -1,37 +1,32 @@
 package TP3;
-
-import java.util.*;
+import java.util.List;
+import java.util.LinkedList;
 
 public class Caminos {
-    public List<List<Integer>> caminoMasLargo(GeneralTree<Integer> arbol){
-        List<List<Integer>> caminosMasLargos = new LinkedList<List<Integer>>();
-        if(arbol!=null && !arbol.isEmpty())
-            caminoMasLargoRec(arbol, caminosMasLargos, new LinkedList<Integer>());
-        return caminosMasLargos;
-    }
+    GeneralTree<Integer> arbol;
 
-    private void caminoMasLargoRec(GeneralTree<Integer> arbol, List<List<Integer>> caminosMasLargos, LinkedList<Integer> caminoActual){
-        caminoActual.add(Arbol.getData());
-        if(arbol.isLeaf()){
-            if(caminoActual.isEmpty | caminoActual.size() == caminosMasLargos.size())
-                //Agregar
+    public List<Integer> caminoAHojaMasLejana(){
+        List<Integer> camino = new LinkedList<>();
+        if (arbol!= null){
+            caminoHelper(arbol, camino, new LinkedList<Integer>());
         }
-        //Recorrer todos los hijos y volver a llamar, eliminar el último elemento del CamAct
+        return camino;
     }
 
-
-    private boolean camTodosImpares(GeneralTree<Integer> arbol,LinkedList<Integer> camino){
-        boolean encontre = false;
-        if(arbol.getData() % 2  != 0){
-            camino.add(arbol.getData());
-            if (arbol.isLeaf()) encontre = true;
-            else {
-                Iterator<GeneralTree<Integer>> it = arbol.getChildren().iterator;
-                while(!encontre && it.hasNext()) encontre = camTodosImpares(it.next(), camino);
-                if(!encontre){
-                    camino.removeLast();
-                }
+    private List<Integer> caminoHelper(GeneralTree<Integer> arbol, List<Integer> camino, List<Integer> caminoActual){
+        caminoActual.add(arbol.getData());
+        if(arbol.isLeaf()){
+            if(camino.isEmpty() || caminoActual.size() > camino.size()){
+                camino = new LinkedList<>(caminoActual);
             }
         }
+        for(GeneralTree<Integer> child : arbol.getChildren()){
+            caminoActual.add(child.getData());
+            caminoHelper(child, camino, caminoActual);
+            caminoActual.remove(caminoActual.size()-1);
+        }
+
+        return camino;
     }
+    
 }
