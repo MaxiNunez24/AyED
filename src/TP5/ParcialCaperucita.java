@@ -2,12 +2,12 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-import tp5.ejercicio1.Edge;
-import tp5.ejercicio1.Graph;
-import tp5.ejercicio1.Vertex;
-import tp5.ejercicio1.listaAdy.AdjListGraph;
+import TP5.Edge;
+import TP5.Graph;
+import TP5.Vertex;
+import TP5.adjList.AdjListGraph;
 
-public class ParcialGrafos{
+public class ParcialCaperucita {
 
     public List<String> recorridoSeguroMaxFrutales (Graph<String> bosque, String caperucita, String abuelita, int maxFrutales) {
         List<String> resultado = new LinkedList<String>();
@@ -106,7 +106,7 @@ public class ParcialGrafos{
         grafo.connect(vertAbu, vert6, 15);
 
 
-        ParcialGrafos parcial = new ParcialGrafos();
+        ParcialCaperucita parcial = new ParcialCaperucita();
         List<String> lista = parcial.recorridoSeguroMaxFrutales(grafo, "Casa de Caperucita", "Casa de la Abuelita", 30);
 
         System.out.println("El recorrido seguro y de mayor cantidad de frutales es: ");
