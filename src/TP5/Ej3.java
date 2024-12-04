@@ -20,13 +20,13 @@ public class Ej3 {
     }
 
 
-    private void dfs(Graph<String> map, Boolean[] marcas, List<List<String>> listaCaminos, Vertex vActual,Vertex  vDestino,int tanqueAuto,List<String> caminoActual){
+    private void dfs(Graph<String> map, Boolean[] marcas, List<List<String>> listaCaminos, Vertex<String> vActual,Vertex<String>  vDestino,int tanqueAuto,List<String> caminoActual){
         marcas[vActual.getPosition()] = true;
         caminoActual.add(vActual.getData());
         if(vActual == vDestino){
             listaCaminos.add(new LinkedList<>(caminoActual)); // IMPORTANTE HACER LA COPIA! Porque siempre modificamos el caminoActual
         }else{ // Se hace un foreach porque tengo que recorrer todo, si me pidieran el primer camino se hace con el Iterator para cortar cuando sea igual
-            for(Edge<String> arista : map.getEdge(vActual)){
+            for(Edge<String> arista : map.getEdges(vActual)){
                 Vertex<String> vAdy = arista.getTarget();
                 int peso = arista.getWeight();
                 if(tanqueAuto >= peso && !marcas[vAdy.getPosition()]){
