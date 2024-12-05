@@ -59,6 +59,9 @@ a && b -> Circuito corto (a es falso = todo falso)
 a & b -> Circuito largo (a es falso, si b es falso = todo falso)
 
 
+## Grafos
+
+En el algoritmo de Dikjstra, para comparar 
 
 
 
