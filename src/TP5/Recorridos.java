@@ -1,4 +1,5 @@
 package TP5;
+import TP1.ej8.Queue;
 import TP5.adjList.AdjListGraph;
 import TP5.adjList.AdjListVertex;
 
@@ -40,6 +41,37 @@ public class Recorridos<T> {
          */
     }
 
+    public List<T> bfs(Graph<T> grafo) {
+        boolean[] marca = new boolean[grafo.getSize()];
+        List<T> datos = new LinkedList<>();
+        for (int i = 0; i < grafo.getSize(); i++) {
+            if (!marca[i]) {
+                this.bfs(i, grafo, marca, datos);
+            }
+        }
+        return datos;
+    }
+
+    private void bfs(int i, Graph<T> grafo, boolean[] marca, List<T> datos) {
+        Queue<Vertex<T>> q = new Queue<Vertex<T>>();
+        q.enqueue(grafo.getVertex(i));
+        marca[i] = true;
+        while (!q.isEmpty()) {
+            Vertex<T> w = q.dequeue();
+            System.out.println(w);
+            // para todos los vecinos de w:
+            List<Edge<T>> adyacentes = grafo.getEdges(w);
+            for (Edge<T> e: adyacentes) {
+                int j = e.getTarget().getPosition();
+                if (!marca[j]) {
+                    marca[j] = true;
+            //Vertex<T> v = e.getTarget();
+                    q.enqueue(e.getTarget());
+                }
+            }
+        }
+    }
+
 
     public static void main(String[] args){
         Graph<String> ciudades = new AdjListGraph<String>();
@@ -67,7 +99,7 @@ public class Recorridos<T> {
         ciudades.connect(v4, v1);
 
         List<String> lisDFS = rec.dfs(ciudades);
-        //List<String> lisBFS = rec.bfs(ciudades);
+        List<String> lisBFS = rec.bfs(ciudades);
 
         System.out.print("Lista DFS: ");
         for (String e: lisDFS){
@@ -76,9 +108,9 @@ public class Recorridos<T> {
 
         System.out.println("");
 
-//        System.out.print("Lista BFS: ");
-//        for (String e: lisBFS){
-//            System.out.print(e + " ~ ");
-//        }
+        System.out.print("Lista BFS: ");
+        for (String e: lisBFS){
+            System.out.print(e + " ~ ");
+        }
     }
 }
