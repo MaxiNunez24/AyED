@@ -13,8 +13,8 @@ public interface Graph<T> {
 	
 	/**
 	 * Elimina el vértice del Grafo.
-	 * En caso que el vértice esté relacionado con otros, estas relaciones también se eliminan.
-	 * 
+	 * En caso de que el vértice esté relacionado con otros, estas relaciones también se eliminan.
+	 *
 	 * @param vertice Vértice a eliminar
 	 */
 	public void removeVertex(Vertex<T> vertex);
