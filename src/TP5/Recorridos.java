@@ -22,7 +22,6 @@ public class Recorridos<T> {
         marca[i] = true;
         Vertex<T> v = grafo.getVertex(i);
         System.out.println(v.getData());
-        datos.add(v.getData());
         List<Edge<T>> adyacentes = grafo.getEdges(v); //adyacentes
         for (Edge<T> e: adyacentes){
             int j = e.getTarget().getPosition();
@@ -106,7 +105,7 @@ public class Recorridos<T> {
             System.out.print(e + " ~ ");
         }
 
-        System.out.println("");
+        System.out.println();
 
         System.out.print("Lista BFS: ");
         for (String e: lisBFS){
