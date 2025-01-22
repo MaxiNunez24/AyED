@@ -224,8 +224,10 @@ public class Mapa {
                 Vertex<String> v = e.getTarget();
                 int costo = e.getWeight();
                 int total = combustible + costo;
-                if(costo <= tanque){
-                    minimo = caminoConMenorCargaDeCombustibleHelper(grafo, v, destino, actual, menor, minimo, total, tanque, marcas);
+                if(marcas[origen.getPosition()]){
+                    if(costo <= tanque){
+                        minimo = caminoConMenorCargaDeCombustibleHelper(grafo, v, destino, actual, menor, minimo, total, tanque, marcas);
+                    }
                 }
             }
         }
