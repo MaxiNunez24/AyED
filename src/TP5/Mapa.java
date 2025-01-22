@@ -200,6 +200,41 @@ public class Mapa {
         return encontre;
     }
 
+    public List<String> caminoConMenorCargaDeCombustible(String ciudad1, String ciudad2, int tanqueAuto){
+        List<String> camino = new LinkedList<>();
+        Vertex<String> origen = mapaCiudades.search(ciudad1);
+        if(origen != null && mapaCiudades.search(ciudad2) != null) {
+            caminoConMenorCargaDeCombustibleHelper(mapaCiudades, origen, ciudad2, new LinkedList<String>(),  camino, Integer.MAX_VALUE, 0, tanqueAuto, new boolean[mapaCiudades.getSize()]);
+        }
+        return camino;
+    }
+    private int caminoConMenorCargaDeCombustibleHelper(Graph<String> grafo, Vertex<String> origen, String destino, List<String> actual, List<String> menor, int minimo, int combustible, int tanque, boolean[] marcas){
+        marcas[origen.getPosition()] = true;
+        actual.add(origen.getData());
+        if(origen.getData().equals(destino)){
+            double calculo = Math.ceil((double) tanque/combustible);
+            int cargas = calculo <= 1 ? 0 : (int) calculo;
+            if(cargas < minimo){
+                minimo = cargas;
+                menor.clear();
+                menor.addAll(actual);
+            }
+        } else{
+            for(Edge<String> e: grafo.getEdges(origen)){
+                Vertex<String> v = e.getTarget();
+                int costo = e.getWeight();
+                int total = combustible + costo;
+                if(costo <= tanque){
+                    minimo = caminoConMenorCargaDeCombustibleHelper(grafo, v, destino, actual, menor, minimo, total, tanque, marcas);
+                }
+            }
+        }
+
+        actual.removeLast();
+        marcas[origen.getPosition()]=false;
+        return minimo;
+    }
+
     public static void imprimirLista(List<String> camino){
         if (camino != null) {
             for (String ciudad : camino) {
@@ -297,6 +332,12 @@ public class Mapa {
         camino = mapa.caminoSinCargarCombustible("Buenos Aires", "Villa María", 780);
 
         imprimirLista(camino);
+
+        System.out.println(" Ejercicio 5--------------------------------------------------------");
+        camino = mapa.caminoConMenorCargaDeCombustible("Buenos Aires", "Villa María", 350);
+
+        imprimirLista(camino);
+
 
 
     }
