@@ -17,6 +17,7 @@ public class Mapa {
         }
         return camino;
     }
+
     private boolean devolverCaminoHelper1(Graph<String> grafo, Vertex<String> origen, String destino, List<String> camino, boolean[] marcas, boolean encontre) {
         marcas[origen.getPosition()] = true;
         camino.add(origen.getData());
@@ -37,6 +38,7 @@ public class Mapa {
         }
         return encontre;
     }
+
     private boolean devolverCaminoHelper2(Graph<String> grafo, Vertex<String> origen, String destino, List<String> camino, boolean[] marcas) {
         marcas[origen.getPosition()] = true;
         camino.add(origen.getData());
@@ -57,6 +59,7 @@ public class Mapa {
         camino.removeLast();
         return false;
     }
+
     private boolean devolverCaminoHelper3(Graph<String> grafo, Vertex<String> origen, String destino, List<String> camino, boolean[] marcas) {
         marcas[origen.getPosition()] = true;
         camino.add(origen.getData());
@@ -87,6 +90,7 @@ public class Mapa {
         }
         return camino;
     }
+
     private boolean devolverCaminoExeptuandoHelper(Graph<String> grafo, Vertex<String> origen, String destino, List<String> camino, boolean[] marcas, List<String> ciudades) {
         marcas[origen.getPosition()] = true;
         camino.add(origen.getData());
@@ -98,7 +102,7 @@ public class Mapa {
             Iterator<Edge<String>> it = grafo.getEdges(origen).iterator();
             while (!encontre && it.hasNext()) {
                 Vertex<String> v = it.next().getTarget();
-                if(!marcas[v.getPosition()]){
+                if (!marcas[v.getPosition()]) {
                     encontre = devolverCaminoExeptuandoHelper(grafo, v, destino, camino, marcas, ciudades);
                 }
             }
@@ -108,7 +112,7 @@ public class Mapa {
         return encontre;
     }
 
-    public List<List<String>> devolverCaminosExeptuando(String ciudad1 ,String ciudad2, List<String> ciudades) {
+    public List<List<String>> devolverCaminosExeptuando(String ciudad1, String ciudad2, List<String> ciudades) {
         List<List<String>> caminos = new LinkedList<>();
         Vertex<String> origen = mapaCiudades.search(ciudad1);
         if (origen != null && mapaCiudades.search(ciudad2) != null && !ciudades.contains(ciudad1) && !ciudades.contains(ciudad2)) {
@@ -116,16 +120,17 @@ public class Mapa {
         }
         return caminos;
     }
-    private void devolverCaminosExeptuandoHelper(Graph<String> grafo, Vertex<String> origen, String destino, List<List<String>> caminos, List<String> actual, boolean[] marcas){
+
+    private void devolverCaminosExeptuandoHelper(Graph<String> grafo, Vertex<String> origen, String destino, List<List<String>> caminos, List<String> actual, boolean[] marcas) {
         marcas[origen.getPosition()] = true;
         actual.add(origen.getData());
         boolean llegue = origen.getData().equals(destino);
-        if(llegue){
+        if (llegue) {
             caminos.add(new LinkedList<>(actual));
-        } else{
-            for(Edge<String> e: grafo.getEdges(origen)){
+        } else {
+            for (Edge<String> e : grafo.getEdges(origen)) {
                 Vertex<String> v = e.getTarget();
-                if(!marcas[v.getPosition()]){
+                if (!marcas[v.getPosition()]) {
                     devolverCaminosExeptuandoHelper(grafo, v, destino, caminos, actual, marcas);
                 }
             }
@@ -137,25 +142,26 @@ public class Mapa {
     public List<String> caminoMasCorto(String ciudad1, String ciudad2) {
         List<String> camino = new LinkedList<>();
         Vertex<String> origen = mapaCiudades.search(ciudad1);
-        if(origen != null && mapaCiudades.search(ciudad2) != null) {
+        if (origen != null && mapaCiudades.search(ciudad2) != null) {
             caminoMasCortoHelper(mapaCiudades, origen, ciudad2, camino, new LinkedList<String>(), Integer.MAX_VALUE, 0, new boolean[mapaCiudades.getSize()]);
         }
         return camino;
     }
-    private int caminoMasCortoHelper(Graph<String> grafo, Vertex<String> origen, String destino, List<String> mejorCamino, List<String> caminoActual, int minimo, int actual, boolean[] marcas){
+
+    private int caminoMasCortoHelper(Graph<String> grafo, Vertex<String> origen, String destino, List<String> mejorCamino, List<String> caminoActual, int minimo, int actual, boolean[] marcas) {
         marcas[origen.getPosition()] = true;
         caminoActual.add(origen.getData());
-        if(origen.getData().equals(destino)){
-            if(actual < minimo){
+        if (origen.getData().equals(destino)) {
+            if (actual < minimo) {
                 mejorCamino.clear();
                 mejorCamino.addAll(caminoActual);
                 minimo = actual;
             }
         } else {
-            for(Edge<String> e: grafo.getEdges(origen)){
+            for (Edge<String> e : grafo.getEdges(origen)) {
                 Vertex<String> v = e.getTarget();
                 int peso = e.getWeight();
-                if(!marcas[v.getPosition()] && actual + peso < minimo){
+                if (!marcas[v.getPosition()] && actual + peso < minimo) {
                     minimo = caminoMasCortoHelper(grafo, v, destino, mejorCamino, caminoActual, minimo, actual + peso, marcas);
                 }
             }
@@ -165,39 +171,69 @@ public class Mapa {
         return minimo;
     }
 
-    public List<String> caminoSinCargarCombustible(String ciudad1, String ciudad2, int tanqueAuto){
+    public List<String> caminoSinCargarCombustible(String ciudad1, String ciudad2, int tanqueAuto) {
         List<String> camino = new LinkedList<>();
         Vertex<String> origen = mapaCiudades.search(ciudad1);
-        if(origen != null && mapaCiudades.search(ciudad2) != null) {
+        if (origen != null && mapaCiudades.search(ciudad2) != null) {
             caminoSinCargarCombustibleHelper(mapaCiudades, origen, ciudad2, camino, 0, tanqueAuto, new boolean[mapaCiudades.getSize()]);
         }
         return camino;
     }
-    private boolean caminoSinCargarCombustibleHelper(Graph<String> grafo, Vertex<String> origen, String destino, List<String> camino, int combustible, int tanque, boolean[] marcas){
-        marcas[origen.getPosition()]=true;
+
+    private boolean caminoSinCargarCombustibleHelper(Graph<String> grafo, Vertex<String> origen, String destino, List<String> camino, int combustible, int tanque, boolean[] marcas) {
+        marcas[origen.getPosition()] = true;
         camino.add(origen.getData());
         boolean encontre = origen.getData().equals(destino);
-        if (encontre){
+        if (encontre) {
             return true;
         }
 
         Iterator<Edge<String>> it = grafo.getEdges(origen).iterator();
-            while(!encontre  && it.hasNext()){
-                Edge<String> e= it.next();
-                int costo=  e.getWeight();
-                Vertex <String> v = e.getTarget();
-                if (!marcas[v.getPosition()] ) {
-                    if(combustible + costo <= tanque){
-                        encontre = caminoSinCargarCombustibleHelper(grafo,v,destino,camino,combustible + costo, tanque, marcas);
-                    }
+        while (!encontre && it.hasNext()) {
+            Edge<String> e = it.next();
+            int costo = e.getWeight();
+            Vertex<String> v = e.getTarget();
+            if (!marcas[v.getPosition()]) {
+                if (combustible + costo <= tanque) {
+                    encontre = caminoSinCargarCombustibleHelper(grafo, v, destino, camino, combustible + costo, tanque, marcas);
                 }
             }
+        }
 
-        if(!encontre){
-            marcas[origen.getPosition()]=false;
+        if (!encontre) {
+            marcas[origen.getPosition()] = false;
             camino.removeLast();
         }
         return encontre;
+    }
+
+    public List<List<String>> caminosSinCargarCombustible(String ciudad1, String ciudad2, int tanqueAuto) {
+        List<List<String>> caminos = new LinkedList<>();
+        Vertex<String> origen = mapaCiudades.search(ciudad1);
+        if (origen != null && mapaCiudades.search(ciudad2) != null) {
+            caminosSinCargarCombustibleHelper(mapaCiudades, origen, ciudad2, new LinkedList<String>(), caminos, 0, tanqueAuto, new boolean[mapaCiudades.getSize()]);
+        }
+        return caminos;
+    }
+    private List<String> caminosSinCargarCombustibleHelper(Graph<String> grafo, Vertex<String> origen, String destino, List<String> caminoActual, List<List<String>> caminos, int combustible, int tanque, boolean[] marcas){
+        marcas[origen.getPosition()] = true;
+        caminoActual.add(origen.getData());
+        if(origen.getData().equals(destino)) {
+            caminos.add(new LinkedList<>(caminoActual));
+        } else {
+            for(Edge<String> e: grafo.getEdges(origen)){
+                Vertex<String> v = e.getTarget();
+                int total = e.getWeight() + combustible;
+                if(!marcas[v.getPosition()]) {
+                    if(total <= tanque) {
+                        caminoActual = caminosSinCargarCombustibleHelper(grafo, v, destino, caminoActual, caminos, total, tanque, marcas);
+                    }
+                }
+            }
+        }
+        caminoActual.removeLast();
+        marcas[origen.getPosition()] = false;
+        return caminoActual;
     }
 
     public List<String> caminoConMenorCargaDeCombustible(String ciudad1, String ciudad2, int tanqueAuto){
@@ -335,6 +371,15 @@ public class Mapa {
 
         imprimirLista(camino);
 
+        System.out.println(" Ejercicio 4 con lista de listas--------------------------------------------------------");
+
+        caminos = mapa.caminosSinCargarCombustible("Buenos Aires", "Villa María", 1000);
+
+        for(List<String> lista : caminos) {
+            imprimirLista(lista);
+            System.out.println("Otro camino_________________________________");
+        }
+
         System.out.println(" Ejercicio 5--------------------------------------------------------");
         camino = mapa.caminoConMenorCargaDeCombustible("Buenos Aires", "Villa María", 350);
 
@@ -344,5 +389,3 @@ public class Mapa {
 
     }
 }
-
-
