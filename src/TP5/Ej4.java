@@ -30,7 +30,6 @@ public class Ej4 {
                 Vertex<String> v = e.getTarget();
                 int proxTiempo = e.getWeight() + tiempoActual;
                 if(!marcas[v.getPosition()] && !lugaresRestringidos.contains(v.getData()) &&  proxTiempo < maxTiempo){
-
                     llegue = paseoEnBiciHelper(grafo, v, destino, camino, proxTiempo, maxTiempo, lugaresRestringidos, marcas );
                 }
             }
@@ -41,7 +40,6 @@ public class Ej4 {
         }
         return llegue;
     }
-
 
     public static void main(String[] args) {
         Graph<String> cityGraph = new AdjListGraph<>();
