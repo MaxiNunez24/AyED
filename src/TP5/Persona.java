@@ -11,5 +11,5 @@ public abstract class Persona {
         return this.nombre;
     }
 
-
+    abstract boolean cumple();
 }

@@ -14,4 +14,8 @@ public class Jubilado extends Persona{
     public void setCobro(boolean cobro){
         this.cobro = cobro;
     }
+
+    public boolean cumple(){
+        return !this.cobro;
+    }
 }
