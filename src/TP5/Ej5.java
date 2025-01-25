@@ -45,20 +45,15 @@ public class Ej5 {
     public static void main(String[] args) {
                 Graph<Persona> grafo = new AdjListGraph<>();
 
-                Persona empleado1 = new Empleado("Empleado1", "Calle 1");
-                Persona empleado2 = new Empleado("Empleado2", "Calle 2");
+                Persona e1 = new Empleado("Origen", "Calle 1");
+                Persona e2 = new Empleado("Extra", "Calle 2");
 
-                Persona jubilado1 = new Jubilado("Jubilado1", "Calle 3", false);
-                Persona jubilado2 = new Jubilado("Jubilado2", "Calle 4", true);
-                Persona jubilado3 = new Jubilado("Jubilado3", "Calle 5", false);
-                Persona jubilado4 = new Jubilado("Jubilado4", "Calle 6", false);
+                Persona jubi1 = new Jubilado("Juancho no cobró", "Calle 3", false);
+                Persona jubi2 = new Jubilado("Pepe cobró", "Calle 4", true);
 
-                Vertex<Persona> e1 = grafo.createVertex(empleado1);
-                Vertex<Persona> e2 = grafo.createVertex(empleado2);
-                Vertex<Persona> j1 = grafo.createVertex(jubilado1);
-                Vertex<Persona> j2 = grafo.createVertex(jubilado2);
-                Vertex<Persona> j3 = grafo.createVertex(jubilado3);
-                Vertex<Persona> j4 = grafo.createVertex(jubilado4);
+                Vertex<Persona> origen = grafo.createVertex(e1);
+                Vertex<Persona> j1 = grafo.createVertex(jubi1);
+
 
                 // TODO:
                 /* grafo.connect(e1, j1);
