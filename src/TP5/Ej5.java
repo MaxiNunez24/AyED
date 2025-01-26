@@ -19,8 +19,8 @@ public class Ej5 {
             boolean termine = false;
             while(!termine && !cola.isEmpty()){
                 Vertex<Persona> vertex = cola.dequeue();
-                Persona persona = vertex.getData();
-                if(persona != null){
+                if(vertex != null){
+                    Persona persona = vertex.getData();
                     if(jubilados.size() <  40 && distanciaActual < gradoSeparacion){
                         if(persona.cumple()) jubilados.add((Jubilado)persona);
                         Iterator<Edge<Persona>> it = grafo.getEdges(vertex).iterator();
@@ -41,36 +41,49 @@ public class Ej5 {
         }
         return jubilados;
     }
-
     public static void main(String[] args) {
-                Graph<Persona> grafo = new AdjListGraph<>();
+        Graph<Persona> grafo = new AdjListGraph<>();
+        Empleado miEmpleado= new Empleado( "Julian", "BBB");
+        Vertex<Persona> v1 = grafo.createVertex(miEmpleado);
+        Vertex<Persona> v2 = grafo.createVertex(new Jubilado("Matias", "AAA", true));
+        Vertex<Persona> v3 = grafo.createVertex(new Jubilado( "Francisco", "CCC", false));
+        Vertex<Persona> v4 = grafo.createVertex(new Jubilado( "Valentin", "DDD", true));
+        Vertex<Persona> v5 = grafo.createVertex(new Jubilado( "Omar", "EEE", true));
+        Vertex<Persona> v6 = grafo.createVertex(new Jubilado( "Rosana", "FFF", true));
+        Vertex<Persona> v7 = grafo.createVertex(new Jubilado( "Maria", "GGG", false));
 
-                Persona e1 = new Empleado("Origen", "Calle 1");
-                Persona e2 = new Empleado("Extra", "Calle 2");
+        Vertex<Persona> v8 = grafo.createVertex(new Jubilado( "Sandra", "HHH", true));
+        Vertex<Persona> v9 = grafo.createVertex(new Jubilado("Matheo", "III", false));
 
-                Persona jubi1 = new Jubilado("Juancho no cobró", "Calle 3", false);
-                Persona jubi2 = new Jubilado("Pepe cobró", "Calle 4", true);
+        grafo.connect(v1, v2);
+        grafo.connect(v2, v1);
+        grafo.connect(v2, v3);
+        grafo.connect(v3, v2);
 
-                Vertex<Persona> origen = grafo.createVertex(e1);
-                Vertex<Persona> j1 = grafo.createVertex(jubi1);
+        grafo.connect(v1, v9);
+        grafo.connect(v9, v1);
+        grafo.connect(v9, v8);
+        grafo.connect(v8, v9);
+
+        grafo.connect(v1, v4);
+        grafo.connect(v4, v1);
+        grafo.connect(v1, v6);
+        grafo.connect(v6, v1);
+        grafo.connect(v4, v5);
+        grafo.connect(v5, v4);
+        grafo.connect(v5, v7);
+        grafo.connect(v7, v5);
 
 
-                // TODO:
-                /* grafo.connect(e1, j1);
-                grafo.connect(e2, j2);
-                grafo.connect(, v3);
-                grafo.connect(v, empleado2);
-                grafo.connect(v, jubilado4);
-                grafo.connect(v, jubilado2);
+        Ej5 banco = new Ej5();
 
-                // Probar el método
-                List<Jubilado> resultado = Ej5.armarCartera(grafo, empleado1, 2);
+        //System.out.println(banco.carteraJubilados(grafo, "Matias", 1, 40));
+        List<Jubilado> listado= banco.armarCartera(grafo,miEmpleado,3);
 
-                // Mostrar los resultados
-                System.out.println("Jubilados asignados:");
-                for (Jubilado j : resultado) {
-                    System.out.println(j.getNombre() + " - " + j.getDomicilio());
-                }
-            */
-            }
+        for (Jubilado x : listado){
+            System.out.println(x.getNombre());
+        }
     }
+}
+
+
