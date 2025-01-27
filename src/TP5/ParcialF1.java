@@ -25,6 +25,7 @@ public class ParcialF1 {
          * 4) Vettel
          * 5) Alonso
          * 6) Colapinto
+         * 7) Bottas
          */
         f1Graph.connect(mercedes, ferrari, 1); // Fangio
         f1Graph.connect(ferrari, renault, 1); // Fangio
@@ -41,6 +42,8 @@ public class ParcialF1 {
         f1Graph.connect(alfaRomeo, astonMartin, 5); // Alonso
 
         f1Graph.connect(williams, alpine, 6); // Colapinto
+
+        f1Graph.connect(mercedes, alfaRomeo, 7); // Bottas
 
         // Display adjacency list
         System.out.println("Adjacency List:");
