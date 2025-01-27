@@ -1,4 +1,6 @@
-/*import java.util.Iterator;
+/*package TP5;
+import java.util.Comparator;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -12,7 +14,7 @@ public class ParcialCaperucita {
     public List<String> recorridoSeguroMaxFrutales (Graph<String> bosque, String caperucita, String abuelita, int maxFrutales) {
         List<String> resultado = new LinkedList<String>();
         // Búsqueda de la casa de Caperucita Roja
-        Vertex<String> vOrigen = bosque.search(caperucita); //buscarCasaCaperucita(bosque, caperucita);
+        Vertex<String> vOrigen = bosque.search(caperucita, ); //buscarCasaCaperucita(bosque, caperucita);
         if (vOrigen!= null)
             dfs(vOrigen.getPosition(), 0, 0, new LinkedList<String>(), new boolean[bosque.getVertices().size()], resultado, abuelita, maxFrutales, bosque);
         return resultado;
@@ -118,5 +120,3 @@ public class ParcialCaperucita {
 
 }
 */
-
-
