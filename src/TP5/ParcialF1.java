@@ -8,42 +8,35 @@ public class ParcialF1 {
         Graph<String> f1Graph = new AdjListGraph<>();
 
         // Adding vertices (teams)
-        Vertex<String> williams = f1Graph.createVertex("Williams");
-        Vertex<String> renault = f1Graph.createVertex("Renault");
-        Vertex<String> ferrari = f1Graph.createVertex("Ferrari");
-        Vertex<String> mercedes = f1Graph.createVertex("Mercedes");
-        Vertex<String> redBull = f1Graph.createVertex("Red Bull");
-        Vertex<String> astonMartin = f1Graph.createVertex("Aston Martin");
+        Vertex<String> origen = f1Graph.createVertex("Origen");
         Vertex<String> alfaRomeo = f1Graph.createVertex("Alfa Romeo");
-        Vertex<String> alpine = f1Graph.createVertex("Alpine");
+        Vertex<String> ferrari = f1Graph.createVertex("Ferrari");
+        Vertex<String> toleman = f1Graph.createVertex("Toleman");
+        Vertex<String> lotus = f1Graph.createVertex("Lotus");
+        Vertex<String> mercedes = f1Graph.createVertex("Mercedes");
+        Vertex<String> mcLaren = f1Graph.createVertex("McLaren");
+        Vertex<String> williams = f1Graph.createVertex("Williams");
 
         // Adding edges (pilots)
         /**
          * 1) Fangio
          * 2) Prost
-         * 3) Verstappen
-         * 4) Vettel
-         * 5) Alonso
-         * 6) Colapinto
-         * 7) Bottas
+         * 3) Senna
+         * 4) Clark
          */
+        f1Graph.connect(origen, alfaRomeo, 1); // Fangio
+        f1Graph.connect(origen, ferrari, 2); // Prost
+        f1Graph.connect(origen, toleman, 3); // Senna
+        f1Graph.connect(origen, lotus, 4); // Clark
+
+        f1Graph.connect(alfaRomeo, mercedes, 1); // Fangio
+        f1Graph.connect(toleman, lotus, 3); // Senna
+        f1Graph.connect(ferrari, mcLaren, 2); // Prost
+        f1Graph.connect(lotus, mcLaren, 3); // Senna
+
         f1Graph.connect(mercedes, ferrari, 1); // Fangio
-        f1Graph.connect(ferrari, renault, 1); // Fangio
-        f1Graph.connect(renault, williams, 1); // Fangio
-
-        f1Graph.connect(mercedes, renault, 2); // Prost
-        f1Graph.connect(renault, ferrari, 2); // Prost
-
-        f1Graph.connect(renault, redBull, 3); // Verstappen
-
-        f1Graph.connect(alfaRomeo, renault, 4); // Vettel
-        f1Graph.connect(renault, astonMartin, 4); // Vettel
-
-        f1Graph.connect(alfaRomeo, astonMartin, 5); // Alonso
-
-        f1Graph.connect(williams, alpine, 6); // Colapinto
-
-        f1Graph.connect(mercedes, alfaRomeo, 7); // Bottas
+        f1Graph.connect(mcLaren, williams, 2); // Prost
+        f1Graph.connect(mcLaren, williams, 3); // Senna
 
         // Display adjacency list
         System.out.println("Adjacency List:");
