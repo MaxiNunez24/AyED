@@ -4,6 +4,47 @@ import TP5.adjList.AdjListGraph;
 import java.util.List;
 
 public class ParcialF1 {
+
+    public String PilotoQuePasoPorMasEscuderias(Graph<String> escuderias){
+        int maxPiloto = 0;
+        int maxPases = 0;
+        if(escuderias != null && !escuderias.isEmpty()){
+            Vertex<String> origen = escuderias.search("Origen");
+            if(origen != null){
+                for(Edge<String> edge : escuderias.getEdges(origen)){
+                    int piloto = edge.getWeight();
+                    Vertex<String> escuderia = edge.getTarget();
+                    System.out.println(piloto + " - " + escuderia.getData());
+                    int cantPases = 1 + dfs(escuderias, escuderia, piloto);
+                    if(cantPases > maxPases){
+                        maxPases = cantPases;
+                        maxPiloto = piloto;
+                    }
+                }
+            }
+        }
+        switch (maxPiloto){
+            case 1: return "Fangio";
+            case 2: return "Prost";
+            case 3: return "Senna";
+            case 4: return "Clark";
+            default: return "Ninguno";
+        }
+    }
+
+    private int dfs(Graph<String> grafo, Vertex<String> origen, int piloto){
+        int cant = 0;
+        if(origen != null){
+            for(Edge<String> edge : grafo.getEdges(origen)){
+                if(edge.getWeight() == piloto){
+                    System.out.println(piloto + " - " + edge.getTarget().getData());
+                    cant = 1 + dfs(grafo, edge.getTarget(), piloto);
+                }
+            }
+        }
+        return cant;
+    }
+
     public static void main(String[] args) {
         Graph<String> f1Graph = new AdjListGraph<>();
 
@@ -35,9 +76,10 @@ public class ParcialF1 {
         f1Graph.connect(lotus, mcLaren, 3); // Senna
 
         f1Graph.connect(mercedes, ferrari, 1); // Fangio
+        f1Graph.connect(mcLaren, williams, 3); // Senna // EL ERROR ERA QUE NO PUEDE HABER DOS ARISTAS CON EL MISMO ORIGEN Y DESTINO!!
         f1Graph.connect(mcLaren, williams, 2); // Prost
-        f1Graph.connect(mcLaren, williams, 3); // Senna
 
+        /*
         // Display adjacency list
         System.out.println("Adjacency List:");
         List<Vertex<String>> teams = f1Graph.getVertices();
@@ -47,5 +89,9 @@ public class ParcialF1 {
                 System.out.println(team.getData() + " - " + edge.getWeight() + " -> " + edge.getTarget().getData());
             }
         }
+        */
+
+        ParcialF1 test = new ParcialF1();
+        System.out.println(test.PilotoQuePasoPorMasEscuderias(f1Graph));
     }
 }
