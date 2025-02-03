@@ -1,7 +1,6 @@
 package TP5;
 
 import TP5.adjList.AdjListGraph;
-import java.util.List;
 
 public class ParcialF1 {
 
@@ -14,7 +13,6 @@ public class ParcialF1 {
                 for(Edge<String> edge : escuderias.getEdges(origen)){
                     int piloto = edge.getWeight();
                     Vertex<String> escuderia = edge.getTarget();
-                    System.out.println(piloto + " - " + escuderia.getData());
                     int cantPases = 1 + dfs(escuderias, escuderia, piloto);
                     if(cantPases > maxPases){
                         maxPases = cantPases;
@@ -23,26 +21,24 @@ public class ParcialF1 {
                 }
             }
         }
-        switch (maxPiloto){
-            case 1: return "Fangio";
-            case 2: return "Prost";
-            case 3: return "Senna";
-            case 4: return "Clark";
-            default: return "Ninguno";
-        }
+        return switch (maxPiloto) {
+            case 1 -> "Fangio";
+            case 2 -> "Prost";
+            case 3 -> "Senna";
+            case 4 -> "Clark";
+            default -> "Ninguno";
+        };
     }
 
     private int dfs(Graph<String> grafo, Vertex<String> origen, int piloto){
-        int cant = 0;
         if(origen != null){
             for(Edge<String> edge : grafo.getEdges(origen)){
                 if(edge.getWeight() == piloto){
-                    System.out.println(piloto + " - " + edge.getTarget().getData());
-                    cant = 1 + dfs(grafo, edge.getTarget(), piloto);
+                    return 1 + dfs(grafo, edge.getTarget(), piloto);
                 }
             }
         }
-        return cant;
+        return 0;
     }
 
     public static void main(String[] args) {
@@ -59,11 +55,11 @@ public class ParcialF1 {
         Vertex<String> williams = f1Graph.createVertex("Williams");
 
         // Adding edges (pilots)
-        /**
-         * 1) Fangio
-         * 2) Prost
-         * 3) Senna
-         * 4) Clark
+        /*
+          1) Fangio
+          2) Prost
+          3) Senna
+          4) Clark
          */
         f1Graph.connect(origen, alfaRomeo, 1); // Fangio
         f1Graph.connect(origen, ferrari, 2); // Prost
