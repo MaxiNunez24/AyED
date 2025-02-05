@@ -1,40 +1,46 @@
 package TP5;
 
+import TP1.ej8.Queue;
 import TP5.adjList.AdjListGraph;
 
-public class ParcialF1 {
+import java.util.LinkedList;
+import java.util.List;
 
-    public String PilotoQuePasoPorMasEscuderias(Graph<String> escuderias){
-        int maxPiloto = 0;
-        int maxPases = 0;
-        if(escuderias != null && !escuderias.isEmpty()){
-            Vertex<String> origen = escuderias.search("Origen");
-            for(Edge<String> edge : escuderias.getEdges(origen)){
-                int piloto = edge.getWeight();
-                Vertex<String> escuderia = edge.getTarget();
-                int cantPases = dfs(escuderias, escuderia, piloto);
-                if(cantPases > maxPases){
-                    maxPases = cantPases;
-                    maxPiloto = piloto;
+public class MercadoDePilotos {
+
+    public String PilotoQuePasoPorMasEscuderias(Graph<String> escuderias) {
+        Vertex<String> origen = escuderias.search("Origen");
+        List<Piloto> pilotos = new LinkedList<>();
+
+        for(Edge<String> edge : escuderias.getEdges(origen)){
+            Piloto pilotoActual = new Piloto(edge.getWeight());
+            pilotos.add(pilotoActual);
+        }
+
+        Queue<Vertex<String>> queue = new Queue<>();
+        queue.enqueue(origen);
+        boolean[] marcas = new boolean[escuderias.getSize()]; // Se inicializa en False
+        marcas[origen.getPosition()] = true;
+        while(!queue.isEmpty()){
+            Vertex<String> actual = queue.dequeue();
+            for(Edge<String> edge : escuderias.getEdges(actual)){
+                int weight = edge.getWeight();
+                Vertex<String> target = edge.getTarget();
+                pilotos.get(weight-1).incrementarPases();
+                if(!marcas[weight]){
+                    marcas[target.getPosition()] = true;
+                    queue.enqueue(target);
                 }
             }
         }
-        return switch (maxPiloto) {
-            case 1 -> "Fangio";
-            case 2 -> "Prost";
-            case 3 -> "Senna";
-            case 4 -> "Clark";
-            default -> "Ninguno";
-        };
-    }
-
-    private int dfs(Graph<String> grafo, Vertex<String> origen, int piloto){
-            for(Edge<String> edge : grafo.getEdges(origen)){
-                if(edge.getWeight() == piloto){
-                    return 1 + dfs(grafo, edge.getTarget(), piloto);
-                }
+        Piloto maxPiloto = pilotos.getFirst();
+        for(Piloto p : pilotos){
+            if(p.getPases() > maxPiloto.getPases()){
+                maxPiloto = p;
             }
-        return 0;
+        }
+
+        return maxPiloto.getNombre();
     }
 
     public static void main(String[] args) {
@@ -83,7 +89,9 @@ public class ParcialF1 {
         }
         */
 
-        ParcialF1 test = new ParcialF1();
+        MercadoDePilotos test = new MercadoDePilotos();
         System.out.println(test.PilotoQuePasoPorMasEscuderias(f1Graph));
     }
 }
+
+

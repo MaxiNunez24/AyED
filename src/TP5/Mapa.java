@@ -23,20 +23,19 @@ public class Mapa {
         camino.add(origen.getData());
         if (destino.equals(origen.getData())) {
             return true;
-        } else {
-            Iterator<Edge<String>> it = grafo.getEdges(origen).iterator();
-            while (!encontre && it.hasNext()) {
-                Vertex<String> v = it.next().getTarget();
-                if (!marcas[v.getPosition()]) {
-                    encontre = devolverCaminoHelper1(grafo, v, destino, camino, marcas, encontre);
-                }
+        }
+        Iterator<Edge<String>> it = grafo.getEdges(origen).iterator();
+        while (!encontre && it.hasNext()) {
+            Vertex<String> v = it.next().getTarget();
+            if (!marcas[v.getPosition()]) {
+                encontre = devolverCaminoHelper1(grafo, v, destino, camino, marcas, encontre);
             }
         }
-        if (!encontre) {
-            marcas[origen.getPosition()] = false;
-            camino.removeLast();
-        }
+
+        if (!encontre) camino.removeLast();
         return encontre;
+            // marcas[origen.getPosition()] = false; -> Si es el primer camino lo que necesito no hace falta desmarcar.
+            // Porque ese vértice no me lleva al destino.
     }
 
     private boolean devolverCaminoHelper2(Graph<String> grafo, Vertex<String> origen, String destino, List<String> camino, boolean[] marcas) {
@@ -44,18 +43,17 @@ public class Mapa {
         camino.add(origen.getData());
         if (origen.getData().equals(destino)) {
             return true;
-        } else {
-            Iterator<Edge<String>> it = grafo.getEdges(origen).iterator();
-            while (it.hasNext()) {
-                Vertex<String> v = it.next().getTarget();
-                if (!marcas[v.getPosition()]) {
-                    if (devolverCaminoHelper2(grafo, v, destino, camino, marcas)) {
-                        return true;
-                    }
+        }
+        Iterator<Edge<String>> it = grafo.getEdges(origen).iterator();
+        while (it.hasNext()) {
+            Vertex<String> v = it.next().getTarget();
+            if (!marcas[v.getPosition()]) {
+                if (devolverCaminoHelper2(grafo, v, destino, camino, marcas)) {
+                    return true;
                 }
             }
         }
-        marcas[origen.getPosition()] = false;
+        // marcas[origen.getPosition()] = false;
         camino.removeLast();
         return false;
     }
@@ -71,12 +69,10 @@ public class Mapa {
                 Vertex<String> v = it.next().getTarget();
                 encontre = devolverCaminoHelper3(grafo, v, destino, camino, marcas);
             }
+
         }
 
-        if (!encontre) {
-            marcas[origen.getPosition()] = false;
-            camino.removeLast();
-        }
+        if (!encontre) camino.removeLast();
         return encontre;
     }
 
@@ -248,8 +244,8 @@ public class Mapa {
         marcas[origen.getPosition()] = true;
         actual.add(origen.getData());
         if(origen.getData().equals(destino)){
-            double calculo = Math.ceil((double) tanque/combustible);
-            int cargas = calculo <= 1 ? 0 : (int) calculo;
+            double calculo = (double)combustible/(double)tanque;
+            int cargas = calculo <= 1 ? 0 : (int)calculo;
             if(cargas < minimo){
                 minimo = cargas;
                 menor.clear();
@@ -260,7 +256,7 @@ public class Mapa {
                 Vertex<String> v = e.getTarget();
                 int costo = e.getWeight();
                 int total = combustible + costo;
-                if(marcas[origen.getPosition()]){
+                if(!marcas[v.getPosition()]){
                     if(costo <= tanque){
                         minimo = caminoConMenorCargaDeCombustibleHelper(grafo, v, destino, actual, menor, minimo, total, tanque, marcas);
                     }

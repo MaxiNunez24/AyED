@@ -21,17 +21,15 @@ public class Ej4 {
         camino.add(origen.getData());
         boolean llegue = origen.getData().equals(destino);
         if(llegue){
-            System.out.println(tiempoActual);
             return llegue;
-        } else {
-            Iterator<Edge<String>> it = grafo.getEdges(origen).iterator();
-            while(!llegue && it.hasNext()){
-                Edge<String> e = it.next();
-                Vertex<String> v = e.getTarget();
-                int proxTiempo = e.getWeight() + tiempoActual;
-                if(!marcas[v.getPosition()] && !lugaresRestringidos.contains(v.getData()) &&  proxTiempo < maxTiempo){
-                    llegue = paseoEnBiciHelper(grafo, v, destino, camino, proxTiempo, maxTiempo, lugaresRestringidos, marcas );
-                }
+        }
+        Iterator<Edge<String>> it = grafo.getEdges(origen).iterator();
+        while(!llegue && it.hasNext()){
+            Edge<String> e = it.next();
+            Vertex<String> v = e.getTarget();
+            int proxTiempo = e.getWeight() + tiempoActual;
+            if(!marcas[v.getPosition()] && !lugaresRestringidos.contains(v.getData()) &&  proxTiempo <= maxTiempo){
+                llegue = paseoEnBiciHelper(grafo, v, destino, camino, proxTiempo, maxTiempo, lugaresRestringidos, marcas );
             }
         }
         if(!llegue){
