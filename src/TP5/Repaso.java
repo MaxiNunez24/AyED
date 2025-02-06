@@ -3,47 +3,88 @@ package TP5;
 import TP1.ej8.Queue;
 import TP5.adjList.AdjListGraph;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-public class MercadoDePilotos {
+public class Repaso {
 
-    public String PilotoQuePasoPorMasEscuderias(Graph<String> escuderias) {
-        Vertex<String> origen = escuderias.search("Origen");
-        List<Piloto> pilotos = new LinkedList<>();
+    public String PilotoQuePasoPorMasEscuderias(Graph<String> escuderias,){
+        if(escuderias != null){
+            Vertex<String> origen = buscarVertice(escuderias,"Origen");
+            List<Piloto>pilotos= new LinkedList<>();
 
-        for(Edge<String> edge : escuderias.getEdges(origen)){
-            Piloto pilotoActual = new Piloto(edge.getWeight());
-            pilotos.add(pilotoActual);
-        }
+            //generar lista de pilotos
+            for(Edge<String> aux: escuderias.getEdges(origen)){
+                Piloto p= new Piloto(aux.getWeight());
+                pilotos.add(p);
+            }
 
-        Queue<Vertex<String>> queue = new Queue<>();
-        queue.enqueue(origen);
-        boolean[] marcas = new boolean[escuderias.getSize()]; // Se inicializa en False
-        marcas[origen.getPosition()] = true;
-        while(!queue.isEmpty()){
-            Vertex<String> actual = queue.dequeue();
-            for(Edge<String> edge : escuderias.getEdges(actual)){
-                int weight = edge.getWeight();
-                Vertex<String> target = edge.getTarget();
-                pilotos.get(weight-1).incrementarPases();
-                if(!marcas[weight]){
-                    marcas[target.getPosition()] = true;
-                    queue.enqueue(target);
+            boolean[] marcas= new boolean[escuderias.getSize()];
+            Queue<Vertex<String>>colaPilotos= new Queue<>();
+            colaPilotos.enqueue(origen);
+            marcas[origen.getPosition()]=true;
+
+            while(!colaPilotos.isEmpty()){
+                Vertex<String> aux= colaPilotos.dequeue();
+                for(Edge<String> edge : escuderias.getEdges(aux)){
+                    Vertex<String> actual= edge.getTarget();
+                    int w= edge.getWeight();
+                    pilotos.get(w).incrementarPases();
+                    if(!marcas[actual.getPosition()]){
+                        marcas[actual.getPosition()]=true;
+                        colaPilotos.enqueue(actual);
+                    }
                 }
             }
-        }
-        Piloto maxPiloto = pilotos.getFirst();
-        for(Piloto p : pilotos){
-            if(p.getPases() > maxPiloto.getPases()){
-                maxPiloto = p;
-            }
-        }
 
-        return maxPiloto.getNombre();
+            //hacer el parcial de temaiken
+            int max=-1;
+            String nombre="";
+            for(Piloto colapintos: pilotos){
+                if(colapintos.getPases()>max){
+                    max=colapintos.getPases();
+                    nombre=colapintos.getNombre();
+                }
+            }
+            return nombre;
+
+
+
+        }
     }
 
-    public static void main(String[] args) {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    private Vertex<String> buscarVertice(Graph<String> grafo, String nombre){
+        Iterator<Vertex<String>> lista= grafo.getVertices().iterator();
+        Vertex<String> aux= null;
+        boolean encontre= false;
+        while(lista.hasNext() && !encontre){
+            aux=lista.next();
+            if(aux.getData().equals(nombre)) {
+                encontre=true;
+            }
+        }
+        return aux;
+    }
+
+
+
+    public static void main(String[] args){
         Graph<String> f1Graph = new AdjListGraph<>();
 
         // Adding vertices (teams)
@@ -89,9 +130,7 @@ public class MercadoDePilotos {
         }
         */
 
-        MercadoDePilotos test = new MercadoDePilotos();
+        Repaso test = new Repaso();
         System.out.println(test.PilotoQuePasoPorMasEscuderias(f1Graph));
     }
 }
-
-

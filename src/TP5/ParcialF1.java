@@ -47,8 +47,8 @@ public class ParcialF1 {
         Vertex<String> toleman = f1Graph.createVertex("Toleman");
         Vertex<String> lotus = f1Graph.createVertex("Lotus");
         Vertex<String> mercedes = f1Graph.createVertex("Mercedes");
-        Vertex<String> mcLaren = f1Graph.createVertex("McLaren");
         Vertex<String> williams = f1Graph.createVertex("Williams");
+        Vertex<String> mcLaren = f1Graph.createVertex("McLaren");
 
         // Adding edges (pilots)
         /*
